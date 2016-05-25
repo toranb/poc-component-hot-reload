@@ -1,0 +1,10 @@
+<div>This is the original template</div>
+
+<div>{{message}}</div>
+<div>
+  External state: {{externalCounter}} <button {{action "incrementeExternalCounter"}}>Increment</button>
+</div>
+<div>Internal state: {{internalCounter}} <button {{action "incrementeInternalCounter"}}>Increment</button></div>
+<div>{{message}}</div>
+<button {{action "myAction"}}>Component action</button>
+{{yield}}

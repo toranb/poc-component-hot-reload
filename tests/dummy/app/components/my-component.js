@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import layout from 'dummy/templates/components/my-component';
+// import layout from 'dummy/templates/components/my-component';
 
 export default Ember.Component.extend({
-  layout,
+  // layout,
   init () {
     // Adding this for debugging purposes.
     window.myComponent = this;

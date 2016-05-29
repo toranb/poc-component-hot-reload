@@ -1,7 +1,8 @@
 import Ember from 'ember';
-import HotComponentMixin from 'poc-component-hot-reload/mixins/hot-component';
+import HotComponentMixin from 'poc-component-hot-reload/mixins/hot-component-caca';
+
 export function initialize(/* application */) {
-  // NOTE: we need to find a better way to extend the component without reopening
+  // TODO: move this to the resolver instead so we only do this for classes that are hot-reloadable
   Ember.Component.reopen(HotComponentMixin);
 }
 

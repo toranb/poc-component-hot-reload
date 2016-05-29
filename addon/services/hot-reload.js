@@ -7,4 +7,6 @@ export default Ember.Service.extend(Evented, {
     window.hotReloadService = this;
     this._super(...arguments);
   }
+
+  // TODO: change signature to use accept instead of a 'newChanges' event https://webpack.github.io/docs/hot-module-replacement.html
 });

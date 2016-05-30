@@ -43,22 +43,25 @@ const HotReplacementComponent = Ember.Component.extend(HotComponentMixin, {
   layout: Ember.computed(function () {
     // TODO: consider excluding positional params from the attributesMap
     // and pass them as positionalParams instead. Not sure there is a difference
-    const attributesMap = Object.keys(this.attrs).map(key=>`${key}=${key}`).join(' ');
+    const positionalParams = this.constructor.positionalParams;
+    const attributesMap = Object.keys(this.attrs)
+      .filter(key => positionalParams.indexOf(key) === -1)
+      .map(key =>`${key}=${key}`).join(' ');
     return Ember.HTMLBars.compile(`
       {{#if hasBlock}}
         {{#if (hasBlock "inverse")}}
-          {{#component wrappedComponentName ${attributesMap} as |a b c d e f g h i j k|}}
+          {{#component wrappedComponentName ${positionalParams.join(' ')} ${attributesMap} as |a b c d e f g h i j k|}}
             {{yield a b c d e f g h i j k}}
           {{else}}
             {{yield to="inverse"}}
           {{/component}}
         {{else}}
-          {{#component wrappedComponentName ${attributesMap} as |a b c d e f g h i j k|}}
+          {{#component wrappedComponentName ${positionalParams.join(' ')} ${attributesMap} as |a b c d e f g h i j k|}}
             {{yield a b c d e f g h i j k}}
           {{/component}}
         {{/if}}
       {{else}}
-        {{component wrappedComponentName ${attributesMap}}}
+        {{component wrappedComponentName ${positionalParams.join(' ')} ${attributesMap}}}
       {{/if}}
     `);
   }).volatile(),

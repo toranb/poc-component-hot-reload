@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import HotComponentMixin from 'poc-component-hot-reload/mixins/hot-component';
-import layout from 'poc-component-hot-reload/templates/components/hot-replacement-component';
 
 const { getOwner } = Ember;
 // The component's constructor is in the format namespace@component:component-name:
@@ -39,7 +38,16 @@ export default Ember.Component.extend(HotComponentMixin, {
   resolver: null, // TODO: consider removing.
 
   tagName: '',  // tagless component to avoid introducing an extra element
-  layout, // We need to avoid getting it from the resolver
+
+  // TODO: what to do with positional arguments and blocks. I have to reconsider extending or writing
+  // my own component helper so it can take a class instead of only a string that will avoid name clashes with
+  // template files
+  layout: Ember.computed(function () {
+    var attributesMap = Object.keys(this.attrs).map(key=>`${key}=${key}`);
+    return Ember.HTMLBars.compile(`
+      {{component wrappedComponent ${attributesMap}}}
+    `);
+  }).volatile(),
 
   __rerenderOnTemplateUpdate (moduleName) {
     this._super(...arguments);

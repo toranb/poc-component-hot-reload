@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   hotReload: inject.service(),
   ajax: Ember.inject.service(),
   now: new Date(),
-  externalCounter: 1,
+  externalCounter: 10,
   actions: {
     updateTemplate() {
       // This simulates a change to the template and a rebuild.

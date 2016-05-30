@@ -6,7 +6,7 @@
 - [x] Fix component hotreload for blocks
 - [x] Fix component hotreload for inverse blocks
 - [x] Fix componetn hotreload for block params
-- [ ] Fix component hotreload for positional attributes
+- [x] Fix component hotreload for positional attributes
 - [x] Remove stuff from the container and ask the resolver again for the new one instead or relying on the module path
 - [ ] Test to make sure this works for layouts as well as templates. 
 - [ ] Add tests 

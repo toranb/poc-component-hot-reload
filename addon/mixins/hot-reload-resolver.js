@@ -26,10 +26,6 @@ export default Ember.Mixin.create({
   },
 
   _resolveComponent (resolved, parsedName) {
-    return HotReplacementComponent.extend({
-      wrappedComponent: parsedName.fullNameWithoutType + '-original',
-      parsedName: parsedName,
-      resolver: this  // We need to pass this since each app might override the default, so we don't want to just ES import ours
-    });
+    return HotReplacementComponent.createClass(resolved, parsedName);
   }
 });

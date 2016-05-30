@@ -1,6 +1,6 @@
 <h2 id="title">Welcome to Ember</h2>
 This was was loaded at: {{now}}
-{{#my-component externalCounter=externalCounter as |x y z|}}
+{{#my-component true 20 externalCounter=externalCounter as |x y z|}}
   <div>Block for my-component with <button {{action "controllerAction"}}>action</button> handled by app controller</div>
   <div>yielded params: {{x}}, {{y}}, {{z}}</div>
 {{else}}

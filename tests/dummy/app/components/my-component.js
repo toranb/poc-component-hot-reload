@@ -1,13 +1,15 @@
 import Ember from 'ember';
 // import layout from 'dummy/templates/components/my-component';
 
-export default Ember.Component.extend({
+const MyComponent = Ember.Component.extend({
   // layout,
   init () {
     // Adding this for debugging purposes.
     window.myComponent = this;
     this._super(...arguments);
   },
+  positionalParam1: null,
+  positionalParam2: null,
   message: 'This is a message from the original component JS',
   internalCounter: 1,
   actions: {
@@ -22,3 +24,8 @@ export default Ember.Component.extend({
     }
   }
 });
+
+MyComponent.reopenClass({
+  positionalParams: ['positionalParam1', 'positionalParam2']
+});
+export default MyComponent;

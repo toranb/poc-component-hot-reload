@@ -17,25 +17,23 @@ function getComponentPath (constructor) {
 }
 
 function clearCache (wrapper) {
-  const name = wrapper.get('parsedName').fullName;
+  const name = `component:${wrapper.get('wrappedComponentName')}`;
   const owner = getOwner(wrapper);
   // TODO: we need a public API for this.
-  owner.__container__.cache[name + '-original'] = undefined;
-  owner.__container__.factoryCache[name + '-original'] = undefined;
-  owner.__registry__._resolveCache[name + '-original'] = undefined;
-  owner.__registry__._failCache[name + '-original'] = undefined;
+  owner.__container__.cache[name] = undefined;
+  owner.__container__.factoryCache[name] = undefined;
+  owner.__registry__._resolveCache[name] = undefined;
+  owner.__registry__._failCache[name] = undefined;
 
-  owner.base.__container__.cache[name + '-original'] = undefined;
-  owner.base.__container__.factoryCache[name + '-original'] = undefined;
-  owner.base.__registry__._resolveCache[name + '-original'] = undefined;
-  owner.base.__registry__._failCache[name + '-original'] = undefined;
+  owner.base.__container__.cache[name] = undefined;
+  owner.base.__container__.factoryCache[name] = undefined;
+  owner.base.__registry__._resolveCache[name] = undefined;
+  owner.base.__registry__._failCache[name] = undefined;
 }
 
-export default Ember.Component.extend(HotComponentMixin, {
+const HotReplacementComponent = Ember.Component.extend(HotComponentMixin, {
   // attrs
-  wrappedComponent: null,
   parsedName: null,
-  resolver: null, // TODO: consider removing.
 
   tagName: '',  // tagless component to avoid introducing an extra element
 
@@ -43,22 +41,24 @@ export default Ember.Component.extend(HotComponentMixin, {
   // my own component helper so it can take a class instead of only a string that will avoid name clashes with
   // template files
   layout: Ember.computed(function () {
-    var attributesMap = Object.keys(this.attrs).map(key=>`${key}=${key}`);
+    // TODO: consider excluding positional params from the attributesMap
+    // and pass them as positionalParams instead. Not sure there is a difference
+    const attributesMap = Object.keys(this.attrs).map(key=>`${key}=${key}`).join(' ');
     return Ember.HTMLBars.compile(`
       {{#if hasBlock}}
         {{#if (hasBlock "inverse")}}
-          {{#component wrappedComponent ${attributesMap} as |a b c d e f g h i j k|}}
+          {{#component wrappedComponentName ${attributesMap} as |a b c d e f g h i j k|}}
             {{yield a b c d e f g h i j k}}
           {{else}}
             {{yield to="inverse"}}
           {{/component}}
         {{else}}
-          {{#component wrappedComponent ${attributesMap} as |a b c d e f g h i j k|}}
+          {{#component wrappedComponentName ${attributesMap} as |a b c d e f g h i j k|}}
             {{yield a b c d e f g h i j k}}
           {{/component}}
         {{/if}}
       {{else}}
-        {{component wrappedComponent ${attributesMap}}}
+        {{component wrappedComponentName ${attributesMap}}}
       {{/if}}
     `);
   }).volatile(),
@@ -68,11 +68,28 @@ export default Ember.Component.extend(HotComponentMixin, {
     var componentPath = getComponentPath(this.constructor);
     if (moduleName === componentPath) {
       clearCache(this);
-      this.set('wrappedComponent', undefined);
+      const wrappedComponentName = this.get('wrappedComponentName');
+      this.set('wrappedComponentName', undefined);
       this.rerender();
       Ember.run.later(()=> {
-        this.set('wrappedComponent', this.get('parsedName').name + '-original');
+        this.set('wrappedComponentName', wrappedComponentName);
       });
     }
   }
 });
+
+HotReplacementComponent.reopenClass({
+  /***
+   * Returns a new class with the correct positional params and settings configured correctly
+   */
+  createClass(OriginalComponentClass, parsedName) {
+    const NewComponentClass = HotReplacementComponent.extend({
+      wrappedComponentName: parsedName.fullNameWithoutType + '-original'
+    });
+    NewComponentClass.reopenClass({
+      positionalParams: OriginalComponentClass.positionalParams ? OriginalComponentClass.positionalParams.slice() : []
+    });
+    return NewComponentClass;
+  }
+});
+export default HotReplacementComponent;

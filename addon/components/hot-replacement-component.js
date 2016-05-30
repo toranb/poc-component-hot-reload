@@ -47,14 +47,14 @@ export default Ember.Component.extend(HotComponentMixin, {
     return Ember.HTMLBars.compile(`
       {{#if hasBlock}}
         {{#if (hasBlock "inverse")}}
-          {{#component wrappedComponent ${attributesMap}}}
-            {{yield}}
+          {{#component wrappedComponent ${attributesMap} as |a b c d e f g h i j k|}}
+            {{yield a b c d e f g h i j k}}
           {{else}}
             {{yield to="inverse"}}
           {{/component}}
         {{else}}
-          {{#component wrappedComponent ${attributesMap}}}
-            {{yield}}
+          {{#component wrappedComponent ${attributesMap} as |a b c d e f g h i j k|}}
+            {{yield a b c d e f g h i j k}}
           {{/component}}
         {{/if}}
       {{else}}

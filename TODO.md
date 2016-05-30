@@ -5,7 +5,7 @@
 - [ ] Make template hot reload work with Ember stable (2.5 today). Setting the template doesn't refresh. Seems like we need to set it on component.block.template (not sure about layout)
 - [x] Fix component hotreload for blocks
 - [x] Fix component hotreload for inverse blocks
-- [ ] Fix componetn hotreload for block params
+- [x] Fix componetn hotreload for block params
 - [ ] Fix component hotreload for positional attributes
 - [x] Remove stuff from the container and ask the resolver again for the new one instead or relying on the module path
 - [ ] Test to make sure this works for layouts as well as templates. 

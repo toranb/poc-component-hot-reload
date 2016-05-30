@@ -1,3 +1,7 @@
 .yield-wrapper {
   background: yellow;
 }
+
+.yield-inverse-wrapper {
+  background: red;
+}

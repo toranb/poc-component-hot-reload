@@ -2,6 +2,8 @@
 This was was loaded at: {{now}}
 {{#my-component externalCounter=externalCounter}}
   Block for my-component with <button {{action "controllerAction"}}>action</button> handled by app controller
+{{else}}
+  This is the inverse block
 {{/my-component}}
 <button {{action "updateTemplate"}}>Update template code</button>
 <button {{action "updateComponent"}}>Update component code</button>

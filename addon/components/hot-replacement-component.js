@@ -46,9 +46,17 @@ export default Ember.Component.extend(HotComponentMixin, {
     var attributesMap = Object.keys(this.attrs).map(key=>`${key}=${key}`);
     return Ember.HTMLBars.compile(`
       {{#if hasBlock}}
-        {{#component wrappedComponent ${attributesMap}}}
-          {{yield}}
-        {{/component}}
+        {{#if (hasBlock "inverse")}}
+          {{#component wrappedComponent ${attributesMap}}}
+            {{yield}}
+          {{else}}
+            {{yield to="inverse"}}
+          {{/component}}
+        {{else}}
+          {{#component wrappedComponent ${attributesMap}}}
+            {{yield}}
+          {{/component}}
+        {{/if}}
       {{else}}
         {{component wrappedComponent ${attributesMap}}}
       {{/if}}

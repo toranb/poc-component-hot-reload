@@ -29,6 +29,10 @@ export default Ember.Controller.extend({
         eval(componentCode);
         this.get('hotReload').trigger('newChanges', 'dummy/components/my-component');
       });
+    },
+
+    controllerAction () {
+      window.alert('Action handled by the controller');
     }
   }
 });

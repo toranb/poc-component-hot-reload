@@ -7,4 +7,9 @@
 <div>Internal state: {{internalCounter}} <button {{action "incrementeInternalCounter"}}>Increment</button></div>
 <div>{{message}}</div>
 <button {{action "myAction"}}>Component action</button>
-{{yield}}
+<div>Yielded content goes inside a yellow box</div>
+{{#if hasBlock}}
+  <div class="yield-wrapper">
+    {{yield}}
+  </div>
+{{/if}}

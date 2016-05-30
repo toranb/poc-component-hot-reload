@@ -1,6 +1,8 @@
 <h2 id="title">Welcome to Ember</h2>
 This was was loaded at: {{now}}
-{{my-component externalCounter=externalCounter}}
+{{#my-component externalCounter=externalCounter}}
+  Block for my-component with <button {{action "controllerAction"}}>action</button> handled by app controller
+{{/my-component}}
 <button {{action "updateTemplate"}}>Update template code</button>
 <button {{action "updateComponent"}}>Update component code</button>
 {{outlet}}

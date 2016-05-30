@@ -45,7 +45,13 @@ export default Ember.Component.extend(HotComponentMixin, {
   layout: Ember.computed(function () {
     var attributesMap = Object.keys(this.attrs).map(key=>`${key}=${key}`);
     return Ember.HTMLBars.compile(`
-      {{component wrappedComponent ${attributesMap}}}
+      {{#if hasBlock}}
+        {{#component wrappedComponent ${attributesMap}}}
+          {{yield}}
+        {{/component}}
+      {{else}}
+        {{component wrappedComponent ${attributesMap}}}
+      {{/if}}
     `);
   }).volatile(),
 

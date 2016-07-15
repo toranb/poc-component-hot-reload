@@ -12,7 +12,7 @@ define('dummy/components/my-component', ['exports', 'ember'], function (exports,
     internalCounter: 42,
     actions: {
       myAction: function myAction() {
-        window.alert('Hi from original component');
+        window.alert('Hi from updated component');
       },
       incrementeExternalCounter: function incrementeExternalCounter() {
         this.incrementProperty('externalCounter');

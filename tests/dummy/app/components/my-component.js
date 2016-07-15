@@ -11,7 +11,7 @@ const MyComponent = Ember.Component.extend({
   positionalParam1: null,
   positionalParam2: null,
   message: 'This is a message from the original component JS',
-  internalCounter: 1,
+  internalCounter: 16,
   actions: {
     myAction () {
       window.alert('Hi from original component');

@@ -66,10 +66,10 @@ const HotReplacementComponent = Ember.Component.extend(HotComponentMixin, {
     `);
   }).volatile(),
 
-  __rerenderOnTemplateUpdate (moduleName) {
+  __rerenderOnTemplateUpdate (/*moduleName*/) {
     this._super(...arguments);
-    var componentPath = getComponentPath(this.constructor);
-    if (moduleName === componentPath) {
+    // var componentPath = getComponentPath(this.constructor);
+    // if (moduleName === componentPath) {
       clearCache(this);
       const wrappedComponentName = this.get('wrappedComponentName');
       this.set('wrappedComponentName', undefined);
@@ -77,7 +77,7 @@ const HotReplacementComponent = Ember.Component.extend(HotComponentMixin, {
       Ember.run.later(()=> {
         this.set('wrappedComponentName', wrappedComponentName);
       });
-    }
+    // }
   }
 });
 

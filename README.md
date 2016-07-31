@@ -1,6 +1,8 @@
 # Poc-component-hot-reload
 
-This README outlines the details of collaborating on this Ember addon.
+All of this WIP and a quick POC. 
+
+Import `mixins/hot-reload-resolve` into your own resolver to get hot-reload of components and templates. That's it. No more magic. By default it only works for dev (TODO: make no-op for prd)
 
 ## Installation
 

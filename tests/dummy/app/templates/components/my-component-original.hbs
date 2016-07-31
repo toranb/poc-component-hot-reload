@@ -1,0 +1,25 @@
+<div>This is the original template</div>
+
+<div>{{message}}</div>
+<div>
+  External state: {{externalCounter}} <button {{action "incrementeExternalCounter"}}>Increment</button>
+</div>
+<div>Internal state: {{internalCounter}} <button {{action "incrementeInternalCounter"}}>Increment</button></div>
+<div>{{message}}</div>
+<button {{action "myAction"}}>Component action</button>
+<div><strong>Yielded content</strong> goes inside a yellow box</div>
+{{#if hasBlock}}
+  <div class="yield-wrapper">
+    {{yield 1 2 3}}
+  </div>
+  <div class="yield-inverse-wrapper">
+    {{yield to="inverse"}}
+  </div>
+{{/if}}
+<div class="positional-params">
+  <strong>Positional params</strong>
+  <ul>
+    <li>Positional param1: {{positionalParam1}}</li>
+    <li>Positional param2: {{positionalParam2}}</li>
+  </ul>
+</div>
